@@ -49,7 +49,16 @@ function viewProducts() {
 };
 
 function lowInventory() {
-	console.log("low Inventory")
+	console.log("Viewing Product Inventory---------------------------")
+	connection.query("SELECT * FROM products WHERE stock_quantity < 5", function(error, results){
+	if (error) throw error;
+		//console.log(results);
+		for (var i = 0; i < results.length; i++) {
+			console.log("id: " + results[i].item_id + " | Product Name: " + results[i].product_name + " | Price: " +
+				results[i].price + " | Quantity: " + results[i].stock_quantity);
+		}
+		console.log("------------------------------")
+	})
 };
 
 function addInventory() {
