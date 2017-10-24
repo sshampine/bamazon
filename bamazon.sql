@@ -2,7 +2,7 @@ DROP DATABASE IF EXISTS bamazon_DB;
 
 CREATE DATABASE bamazon_DB;
 
-USE bamazon;
+USE bamazon_DB;
 
 CREATE TABLE products (
 	item_id INT AUTO_INCREMENT PRIMARY KEY,

@@ -41,7 +41,7 @@ function viewProducts() {
 		//console.log(results);
 		for (var i = 0; i < results.length; i++) {
 			console.log("id: " + results[i].item_id + " | Product Name: " + results[i].product_name + " | Price: " +
-				results[i].price + " | Quantity: " + results[i].stock_quantity);
+				results[i].price + " | Quantity: " + results[i].stock_quantity + " | Dept: " + results[i].department_name);
 		}
 		console.log("------------------------------")
 		//start();
@@ -55,7 +55,7 @@ function lowInventory() {
 		//console.log(results);
 		for (var i = 0; i < results.length; i++) {
 			console.log("id: " + results[i].item_id + " | Product Name: " + results[i].product_name + " | Price: " +
-				results[i].price + " | Quantity: " + results[i].stock_quantity);
+				results[i].price + " | Quantity: " + results[i].stock_quantity + " | Dept: " + results[i].department_name);
 		}
 		console.log("------------------------------")
 	})
@@ -63,38 +63,83 @@ function lowInventory() {
 
 function addInventory() {
 	console.log("Adding Product Inventory---------------------------")
-	inquirer.prompt([
-		{
-			name: "product",
-			type: "input",
-			message: "What is the name of the product to be added?"
-		},
-		{
-			name: "price",
-			type: "input",
-			message: "What is the price of the product to be added?"
-		},
-		{
-			name: "quantity",
-			type: "input",
-			message: "How much stock invenotry to add for the product?"
+	connection.query("SELECT * FROM products", function(error, results) {
+		if (error) throw error;
+		var prodArray = [];
+		for (var i = 0; i < results.length; i++) {
+			prodArray.push(results[i].product_name)
 		}
-	]).then(function(answer) {
-		connection.query(
-			"INSERT INTO products SET ?",
-			{
-				product_name: answer.product,
-				price: answer.price,
-				stock_quantity: answer.quantity
-			},
-			function(error) {
-				if (error) throw error;
-				console.log("Update completed.")
-			}
-			)
+		inquirer.prompt([
+		{
+			type: "list",
+			name: "product",
+			choices: prodArray,
+			message: "Which item would you like to add to inventory?"
+		},
+		{
+			type: "input",
+			name: "quantity",
+			message: "How much inventory to add?"
+		},
+		]).then(function(answers){
+			connection.query("UPDATE products SET ? WHERE ?", [
+				{stock_quantity: answers.quantity},
+				{product_name: answers.product}
+
+
+				], function(error, results) {
+					if (error) throw error
+					console.log("Inventory updated")
+					start();
+				})
+		})
 	})
+	
 };
 
 function newInventory() {
-	console.log("new Inventory")
+	console.log("Add New Product to Inventory---------------------------")
+	var deptArray = [];
+	connection.query("SELECT * FROM products", function(error, results) {
+		if (error) throw error;
+		
+		for (var i = 0; i = results.length; i++) {
+			deptArray.push(results[i].department_name)
+		}
+	})
+	inquirer.prompt([
+	{
+		type: "input",
+		name: "product",
+		message: "New Product Name:"
+	},
+	{
+		type: "list",
+		name: "departmentName",
+		choices: deptArray,
+		message: "Select department for new item:"
+	},
+	{
+		type: "input",
+		name: "price",
+		message: "Enter price for new item:"
+	},
+	{
+		type: "input",
+		name: "quantity",
+		message: "Enter quantity for new item:"
+	}
+
+		]).then(function(answers) {
+			connection.query("INSERT INTO products SET ?", {
+				product_name: answers.product,
+				department_name: answers.deptArray,
+				price: answers.price,
+				stock_quantity: answers.quantity
+			}, function(error, results) {
+				if (error) throw error
+				console.log("New item successfully added to inventory.")
+			})
+			start();
+		})
 };
