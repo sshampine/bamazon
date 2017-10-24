@@ -21,7 +21,7 @@ function start() {
 		choices: ["View", "Low", "Add", "New"]
 	})
 	.then(function(answer){
-		console.log(answer)
+		//console.log(answer)
 		if (answer.mgrFunctions === "View") {
 			viewProducts()
 		} else if(answer.mgrFunctions === "Low") {
@@ -62,7 +62,37 @@ function lowInventory() {
 };
 
 function addInventory() {
-	console.log("add Inventory")
+	console.log("Adding Product Inventory---------------------------")
+	inquirer.prompt([
+		{
+			name: "product",
+			type: "input",
+			message: "What is the name of the product to be added?"
+		},
+		{
+			name: "price",
+			type: "input",
+			message: "What is the price of the product to be added?"
+		},
+		{
+			name: "quantity",
+			type: "input",
+			message: "How much stock invenotry to add for the product?"
+		}
+	]).then(function(answer) {
+		connection.query(
+			"INSERT INTO products SET ?",
+			{
+				product_name: answer.product,
+				price: answer.price,
+				stock_quantity: answer.quantity
+			},
+			function(error) {
+				if (error) throw error;
+				console.log("Update completed.")
+			}
+			)
+	})
 };
 
 function newInventory() {
