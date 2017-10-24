@@ -17,8 +17,8 @@ function start() {
 	inquirer.prompt({
 		name: "mgrFunctions",
 		type: "rawlist",
-		message: "Would you like to [View] Products for Sale, View [Low] Inventory, [Add] to Inventory, or Add [New] Product?",
-		choices: ["View", "Low", "Add", "New"]
+		message: "Would you like to [View] Products for Sale, View [Low] Inventory, [Add] to Inventory, Add [New] Product?, or [Exit}",
+		choices: ["View", "Low", "Add", "New", "Exit"]
 	})
 	.then(function(answer){
 		//console.log(answer)
@@ -28,8 +28,10 @@ function start() {
 			lowInventory()
 		} else if(answer.mgrFunctions === "Add") {
 			addInventory()
-		} else {
+		} else if (answer.mgrFunctions ==="New"){
 			newInventory()
+		} else {console.log("Goodby. Thanks for shopping with us!")
+			connection.end();
 		}
 	});
 }
@@ -44,7 +46,7 @@ function viewProducts() {
 				results[i].price + " | Quantity: " + results[i].stock_quantity + " | Dept: " + results[i].department_name);
 		}
 		console.log("------------------------------")
-		//start();
+		start();
 	})
 };
 
@@ -58,6 +60,7 @@ function lowInventory() {
 				results[i].price + " | Quantity: " + results[i].stock_quantity + " | Dept: " + results[i].department_name);
 		}
 		console.log("------------------------------")
+		start();
 	})
 };
 
@@ -98,47 +101,49 @@ function addInventory() {
 };
 
 function newInventory() {
-	console.log("Add New Product to Inventory---------------------------")
+	console.log("Add New Product to Inventory---------------------------");
 	var deptArray = [];
-	connection.query("SELECT * FROM products", function(error, results) {
+	connection.query("SELECT * FROM products", function(error, results){
 		if (error) throw error;
-		
-		for (var i = 0; i = results.length; i++) {
+		for (var i = 0; i < results.length; i++){
 			deptArray.push(results[i].department_name)
 		}
-	})
+		//console.log(deptArray)
+	});
+
 	inquirer.prompt([
-	{
-		type: "input",
-		name: "product",
-		message: "New Product Name:"
-	},
-	{
-		type: "list",
-		name: "departmentName",
-		choices: deptArray,
-		message: "Select department for new item:"
-	},
-	{
-		type: "input",
-		name: "price",
-		message: "Enter price for new item:"
-	},
-	{
-		type: "input",
-		name: "quantity",
-		message: "Enter quantity for new item:"
-	}
+		{
+			type: "input",
+			name: "product",
+			message: "New product to add:"
+		},
+		{
+			type: "list",
+			name: "department",
+			choices: deptArray,
+			message: "Department of new product:"
+		},
+		{
+			type: "input",
+			name: "price",
+			message: "Price of new product:"
+		},
+		{
+			type: "input",
+			name: "quantity",
+			message: "Quantity of new product"
+		},
 
 		]).then(function(answers) {
-			connection.query("INSERT INTO products SET ?", {
+			//console.log(answers)
+			connection.query("INSERT INTO products SET ?",{
 				product_name: answers.product,
-				department_name: answers.deptArray,
+				department_name: answers.department,
 				price: answers.price,
 				stock_quantity: answers.quantity
-			}, function(error, results) {
-				if (error) throw error
-				console.log("New item successfully added to inventory.")
+			}, function(error, results){
+				if(error) throw error;
+				console.log("Item added to inventory.")
 			})
 			start();
 		})
