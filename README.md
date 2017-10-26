@@ -2,7 +2,7 @@
 
 Week 12 Assignment: Bamazon!
 
-The challeng was to create an Amazon like store front using Node.js. The Bamazon store is CLI driven. The Node.js app uses MySQL to hold product inventory. Two versions of Bamazon are available:
+The challenge was to create an Amazon like store front using Node.js. The Bamazon store is CLI driven. The Node.js app uses MySQL to hold product inventory. Two versions of Bamazon are available:
 
 ### BamazonCustomer.js
 
@@ -30,8 +30,8 @@ Allows a "manager" to perform various tasks:
  
  ## How to Install and Run
  
- 1. Clone the bamazon repo to your computer.
- 1. From Terminal or Git Bash type `nmp install` to install the required NPM files.
+ 1. Clone the Bamazon repo to your computer.
+ 1. From Terminal or Git Bash type `nmp install` to install the required Node dependencies.
  1. Type `npm start` to bring up the initial menu.
  1. Select either `customer` or `manager` to run either version of the store.
  1. Alternativly type `node bamazonCustomer.js` or `node bamazonManager.js` to run either version of the store.
@@ -40,7 +40,7 @@ Allows a "manager" to perform various tasks:
  ### Prerequisites
  
  - Node.js - download and install Node.js from https://nodejs.org/en/download/
- - MySQL - download and install MySQL. Create a the initial Bamazon database referencing bamazon.sql file. Import the Bamazon store using the seedFile.csf file.   
+ - MySQL - download and install MySQL from https://www.mysql.com/downloads/. Create a the initial Bamazon database referencing the bamazon.sql file. Import the Bamazon store data using seedFile.csv file.   
  
  ## Technologies Used
  
