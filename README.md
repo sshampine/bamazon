@@ -23,6 +23,10 @@ Allows a "manager" to perform various tasks:
  
  Using NMP Install - [npm install](https://youtu.be/nxQLvKV84Xg)
  
+ Using Customer Module - [npm customer](https://youtu.be/uXmwxNPyUwk)
+ 
+ Using Manager Module - [npm manager](https://youtu.be/hWkHMsOe60U)
+ 
  
  ## How to Install
  
