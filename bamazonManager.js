@@ -1,6 +1,7 @@
+//require mysql and inquirer
 var mysql = require("mysql");
 var inquirer = require("inquirer");
-
+//creates db connection to mysql
 var connection = mysql.createConnection({
 	host			:  		"127.0.0.1",
 	user			: 		"root",
@@ -13,6 +14,7 @@ connection.connect(function(error){
 	start();
 });
 
+//start function that prints initial inquirer menu
 function start() {
 	inquirer.prompt({
 		name: "mgrFunctions",
@@ -36,6 +38,7 @@ function start() {
 	});
 }
 
+//view products function that queries db for products and prints them
 function viewProducts() {
 	console.log("Viewing Product Inventory---------------------------");
 	connection.query("SELECT * FROM products", function(error, results){
@@ -50,6 +53,7 @@ function viewProducts() {
 	})
 };
 
+//low inventory function tht queries db for products and prints stock inventory lower than 5
 function lowInventory() {
 	console.log("Viewing Product Inventory---------------------------")
 	connection.query("SELECT * FROM products WHERE stock_quantity < 5", function(error, results){
@@ -64,9 +68,11 @@ function lowInventory() {
 	})
 };
 
+//add inventory function that queires db and allows an update to inventory
 function addInventory() {
 	console.log("Adding Product Inventory---------------------------")
 	connection.query("SELECT * FROM products", function(error, results) {
+		//gets product results to an array for inquirer
 		if (error) throw error;
 		var prodArray = [];
 		for (var i = 0; i < results.length; i++) {
@@ -85,6 +91,7 @@ function addInventory() {
 			message: "How much inventory to add?"
 		},
 		]).then(function(answers){
+			//updates db with inventory
 			connection.query("UPDATE products SET ? WHERE ?", [
 				{stock_quantity: answers.quantity},
 				{product_name: answers.product}
@@ -100,10 +107,12 @@ function addInventory() {
 	
 };
 
+//new invetory function to add new item 
 function newInventory() {
 	console.log("Add New Product to Inventory---------------------------");
 	var deptArray = [];
 	connection.query("SELECT * FROM products", function(error, results){
+		//gets dept names to an array for inquirer
 		if (error) throw error;
 		for (var i = 0; i < results.length; i++){
 			deptArray.push(results[i].department_name)
@@ -136,6 +145,7 @@ function newInventory() {
 
 		]).then(function(answers) {
 			//console.log(answers)
+			//inserts into db new inventory
 			connection.query("INSERT INTO products SET ?",{
 				product_name: answers.product,
 				department_name: answers.department,

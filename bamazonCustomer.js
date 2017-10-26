@@ -1,6 +1,8 @@
+//require mysql and inquirer
 var mysql = require("mysql");
 var inquirer = require("inquirer");
 
+//create db connection to mysql
 var connection = mysql.createConnection({
 	host			: 		"127.0.0.1",
 	user 			: 		"root",
@@ -8,7 +10,7 @@ var connection = mysql.createConnection({
 	database		: 		"bamazon_DB"
 })
 
-
+//function that prints items for sale
 function store() {
 	connection.query("SELECT * FROM products", function(error, results){
 		if (error) throw error;
@@ -36,6 +38,7 @@ function store() {
 			//console.log(toBuy)
 			var total = results[toBuy].price * answers.quantity
 			//console.log(total)
+		//checks if quanity is sufficient
 			if(results[toBuy].stock_quantity >= answers.quantity) {
 				connection.query("UPDATE products SET ? WHERE ?", [
 					{stock_quantity: (results[toBuy].stock_quantity - answers.quantity)},
@@ -51,7 +54,7 @@ function store() {
 		})
 	})
 }
-
+//reprompt function that asks if customer would like to make additional purchases
 function reprompt() {
 	inquirer.prompt([
 	{
@@ -63,8 +66,9 @@ function reprompt() {
 			store();
 		}else {
 			console.log("Later!")
+			connection.end()
 		}
-		connection.end()
+		
 	})
 }
 
