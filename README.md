@@ -21,6 +21,7 @@ Allows a "manager" to perform various tasks:
  
  ## Demo Videos
  
+ Using NMP Install - [npm install](https://youtu.be/nxQLvKV84Xg)
  
  
  ## How to Install
