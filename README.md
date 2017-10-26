@@ -4,20 +4,20 @@ Week 12 Assignment: Bamazon!
 
 The challeng was to create an Amazon like store front using Node.js. The Bamazon store is CLI driven. The Node.js app uses MySQL to hold product inventory. Two versions of Bamazon are available:
 
-### BamazonCustomer
+### BamazonCustomer.js
 
 Allows a "customer" to purchse various items from inventory
-  * Prints product inventory of the store
-    * If sufficient inventory is avaiable, the purchase is allowed
-    * If the purchase goes throught, inventory is updated
+* Prints product inventory of the store
+  * If sufficient inventory is avaiable, the purchase is allowed
+  * If the purchase goes through, inventory is updated
  
-### BamazonManager
+### BamazonManager.js
 
 Allows a "manager" to perform various tasks:
-     * View products for sale: lists every avaialble item, the ID, name, price, department, and quantity.
-     * View low inventory: lists items with an inventory count lower than five.
-     * Add inventory: displays a prompt that allows the manager to added more of any item currently in the store.
-     * Add new product: allows a manager to add new product to the store.
+* View products for sale: lists every avaialble item, the ID, name, price, department, and quantity.
+* View low inventory: lists items with an inventory count lower than five.
+* Add inventory: displays a prompt that allows the manager to added more of any item currently in the store.
+* Add new product: allows a manager to add new product to the store.
      
  ## Demo Videos
  
@@ -34,7 +34,7 @@ Allows a "manager" to perform various tasks:
  1. From Terminal or Git Bash type `nmp install` to install the required NPM files.
  1. Type `npm start` to bring up the initial menu.
  1. Select either `customer` or `manager` to run either version of the store.
- 1. Alternativly type node `bamazonCustomer.js` or `node bamazonManager.js` to run either version of the store.
+ 1. Alternativly type `node bamazonCustomer.js` or `node bamazonManager.js` to run either version of the store.
  
  
  ### Prerequisites
