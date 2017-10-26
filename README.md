@@ -18,7 +18,7 @@ Allows a "manager" to perform various tasks:
      * View low inventory: lists items with an inventory count lower than five.
      * Add inventory: displays a prompt that allows the manager to added more of any item currently in the store.
      * Add new product: allows a manager to add new product to the store.
- 
+     
  ## Demo Videos
  
  Using NMP Install - [npm install](https://youtu.be/nxQLvKV84Xg)
@@ -28,12 +28,14 @@ Allows a "manager" to perform various tasks:
  Using Manager Module - [npm manager](https://youtu.be/hWkHMsOe60U)
  
  
- ## How to Install
+ ## How to Install and Run
  
  1. Clone the bamazon repo to your computer.
  1. From Terminal or Git Bash type `nmp install` to install the required NPM files.
  1. Type `npm start` to bring up the initial menu.
  1. Select either `customer` or `manager` to run either version of the store.
+ 1. Alternativly type node `bamazonCustomer.js` or `node bamazonManager.js` to run either version of the store.
+ 
  
  ### Prerequisites
  
